@@ -1,5 +1,6 @@
 package com.cbfacademy.restapiexercise.ious;
 
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import com.cbfacademy.restapiexercise.*;
+
 
 
 @RestController
@@ -18,11 +19,17 @@ import com.cbfacademy.restapiexercise.*;
 
 public class IOUController {
 
+    // constructor based dependency injection
+    public final IOUService iouService;
+
+    public IOUController(IOUService iouService){
+    this.iouService = iouService;
+    }
 
 
-    @GetMapping("/{id}", produces = "application/json")
+    @GetMapping(value = "/{id}", produces = "application/json")
     public IOU findIOUById(@PathVariable int id) {
-        return findIOUById(id);
+        return iouService.getIOU(null);
     }
 
     @GetMapping("/all")
@@ -30,19 +37,23 @@ public class IOUController {
         return getAllIOUs();
     }
 
-    @PutMapping("/{id}", produces = "application/json")
+    @PutMapping(value = "/{id}", produces = "application/json")
     public IOU updateIOU(@PathVariable int id, @RequestBody IOU updatedIOU)
     {
         IOU originalIOU = findIOUById(id);
 
-        return updateIOU(originalIOU, updatedIOU);
+        //Update the original IOU with values from updatedIOU
+        originalIOU.setAmount(updatedIOU.getAmount());
+
+        return updateIOU(id, updatedIOU);
+        //return updateIOU(originalIOU, updatedIOU); doesnt work , 
+        //method abouve takes param id and IOU
     }
 
-    @PostMapping("/{id}", produces = "application/json")
-    public IOU postIOU(@PathVariable int id, @RequestBody IOU newIOU)
+    @PostMapping(produces = "application/json")
+    public IOU createIOU(@RequestBody IOU newIOU)
     {
-        IOU newIOU = IOU(id);
-        return postIOU(id);
+        return createIOU(newIOU);
     }
 
     @DeleteMapping("/{id}")

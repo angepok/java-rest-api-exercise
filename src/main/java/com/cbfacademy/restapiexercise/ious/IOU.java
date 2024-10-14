@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,6 +31,14 @@ public class IOU {
     // no arg constructor
     public IOU(){
 
+
+    }
+
+    public IOU(String borrower, String lender, BigDecimal amount, Instant dateTime) {
+        this.borrower = borrower;
+        this.lender = lender;
+        this.amount = amount;
+        this.dateTime = dateTime;
     }
 
     //Getters and setters
