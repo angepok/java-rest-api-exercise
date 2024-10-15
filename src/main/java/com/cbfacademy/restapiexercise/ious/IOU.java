@@ -19,20 +19,13 @@ public class IOU {
     @Id // Marks this field as the primary key.
     @GeneratedValue(strategy = GenerationType.UUID) 
     public UUID id;
-
     public String borrower;
-
     public BigDecimal amount;
-
     public Instant dateTime;
-
     public String lender;
 
     // no arg constructor
-    public IOU(){
-
-
-    }
+    public IOU(){}
 
     public IOU(String borrower, String lender, BigDecimal amount, Instant dateTime) {
         this.borrower = borrower;

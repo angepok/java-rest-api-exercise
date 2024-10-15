@@ -39,23 +39,26 @@ public class IOUService {
     public IOU createIOU(IOU iou) throws IllegalArgumentException, OptimisticLockingFailureException {
         if (iou.getId() != null) {
             throw new IllegalArgumentException("New IOU should not have an existing ID");
-        } try {
-        return iouRepository.save(null);
+        }
+         try {
+        return iouRepository.save(iou);
      } catch (OptimisticLockingFailureException e) {
         throw new OptimisticLockingFailureException("Failed to create IOU due to optimistic locking");
     }
 }
+
     //IOU updateIOU(UUID id, IOU updatedIOU) throws NoSuchElementException;
     public IOU updateIOU(UUID id , IOU updatedIOU) throws NoSuchElementException{
     
-       IOU originalIOU = iouRepository.findById(id).orElseThrow(() -> new NoSuchElementException("IOU with id " + id + " not found"));
+       IOU existingIOU = iouRepository.findById(id).orElseThrow(() -> new NoSuchElementException("IOU with id " + id + " not found"));
 
         // Update the existing IOU with values from updatedIOU (depends on your model fields)
-        originalIOU.setBorrower(updatedIOU.getBorrower());
-        originalIOU.setAmount(updatedIOU.getAmount());  // Assuming there is an amount field
-        // Set any other updatable fields...
+        existingIOU.setBorrower(updatedIOU.getBorrower());
+        existingIOU.setAmount(updatedIOU.getAmount());  // Assuming there is an amount field
+        existingIOU.setAmount(updatedIOU.getAmount());
+        existingIOU.setDateTime(updatedIOU.getDateTime());
 
-        return iouRepository.save(originalIOU);  // save will perform both create and update
+        return iouRepository.save(existingIOU);  // save will perform both create and update
     }
     
     //void deleteIOU(UUID id);
@@ -67,7 +70,12 @@ public class IOUService {
         //iouRepository.delete(null);
     }
 
+   // public void getIOUsByBorrower(){
+
+   // }
+
 }
+
   
 
 

@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 
 
@@ -28,37 +30,37 @@ public class IOUController {
 
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public IOU findIOUById(@PathVariable int id) {
-        return iouService.getIOU(null);
+    public IOU findIOUById(@PathVariable UUID id ) {
+        //@RequestParam(required = false) String borrower
+        return iouService.getIOU(id);
     }
 
     @GetMapping("/all")
     public List<IOU> getAllIOUs(){
-        return getAllIOUs();
+        return iouService.getAllIOUs();
     }
 
     @PutMapping(value = "/{id}", produces = "application/json")
-    public IOU updateIOU(@PathVariable int id, @RequestBody IOU updatedIOU)
+    public IOU updateIOU(@PathVariable UUID id, @RequestBody IOU updatedIOU)
     {
-        IOU originalIOU = findIOUById(id);
+        IOU originalIOU = iouService.getIOU(id);
 
         //Update the original IOU with values from updatedIOU
         originalIOU.setAmount(updatedIOU.getAmount());
 
-        return updateIOU(id, updatedIOU);
-        //return updateIOU(originalIOU, updatedIOU); doesnt work , 
+        return iouService.updateIOU(id, updatedIOU);
         //method abouve takes param id and IOU
     }
 
     @PostMapping(produces = "application/json")
     public IOU createIOU(@RequestBody IOU newIOU)
     {
-        return createIOU(newIOU);
+        return iouService.createIOU(newIOU);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteIOUById(@PathVariable int id){
-
+    public void deleteIOUById(@PathVariable UUID id){
+        iouService.deleteIOU(id);
     };
     }
 
