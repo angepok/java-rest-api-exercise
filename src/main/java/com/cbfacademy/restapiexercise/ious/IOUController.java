@@ -1,6 +1,8 @@
 package com.cbfacademy.restapiexercise.ious;
 
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 
@@ -35,22 +38,19 @@ public class IOUController {
         return iouService.getIOU(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<IOU> getAllIOUs(){
-        return iouService.getAllIOUs();
+    return iouService.getAllIOUs();
     }
+
 
     @PutMapping(value = "/{id}", produces = "application/json")
     public IOU updateIOU(@PathVariable UUID id, @RequestBody IOU updatedIOU)
     {
-        IOU originalIOU = iouService.getIOU(id);
-
-        //Update the original IOU with values from updatedIOU
-        originalIOU.setAmount(updatedIOU.getAmount());
-
         return iouService.updateIOU(id, updatedIOU);
         //method abouve takes param id and IOU
-    }
+    } 
+
 
     @PostMapping(produces = "application/json")
     public IOU createIOU(@RequestBody IOU newIOU)
@@ -58,9 +58,10 @@ public class IOUController {
         return iouService.createIOU(newIOU);
     }
 
+    
     @DeleteMapping("/{id}")
-    public void deleteIOUById(@PathVariable UUID id){
+    public void deleteIOUById(@PathVariable(value = "id") UUID id){
         iouService.deleteIOU(id);
-    };
+        }
     }
 

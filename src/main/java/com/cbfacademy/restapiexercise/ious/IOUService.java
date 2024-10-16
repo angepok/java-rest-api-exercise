@@ -53,19 +53,16 @@ public class IOUService {
        IOU existingIOU = iouRepository.findById(id).orElseThrow(() -> new NoSuchElementException("IOU with id " + id + " not found"));
 
         // Update the existing IOU with values from updatedIOU (depends on your model fields)
-        existingIOU.setBorrower(updatedIOU.getBorrower());
-        existingIOU.setAmount(updatedIOU.getAmount());  // Assuming there is an amount field
-        existingIOU.setAmount(updatedIOU.getAmount());
-        existingIOU.setDateTime(updatedIOU.getDateTime());
+       // existingIOU.setBorrower(updatedIOU.getBorrower());
+       // existingIOU.setAmount(updatedIOU.getAmount());  // Assuming there is an amount field
+       // existingIOU.setAmount(updatedIOU.getAmount());
+        //existingIOU.setDateTime(updatedIOU.getDateTime());
 
         return iouRepository.save(existingIOU);  // save will perform both create and update
     }
     
     //void deleteIOU(UUID id);
     void deleteIOU(UUID id){
-        if (!iouRepository.existsById(id)) {
-            throw new NoSuchElementException("IOU with id " + id + " not found");
-        }
         iouRepository.deleteById(id);
         //iouRepository.delete(null);
     }
