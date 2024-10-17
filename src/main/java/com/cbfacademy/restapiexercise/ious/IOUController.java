@@ -72,6 +72,10 @@ public class IOUController {
         return iouService.getHighValueIous();
     }
     
+    @GetMapping("/low")
+    public List<IOU> getLowIous(){
 
+        return iouService.getLowValueIous();
+    }
     }
 

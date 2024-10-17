@@ -76,6 +76,10 @@ public class IOUService {
         return iouRepository.findHighValueIOUs();
     }
 
+    public List<IOU> getLowValueIous(){
+        return iouRepository.findLowValueIOUs();
+    }
+
 }
 
   

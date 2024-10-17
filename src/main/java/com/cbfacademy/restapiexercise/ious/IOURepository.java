@@ -14,4 +14,7 @@ public interface IOURepository extends ListCrudRepository<IOU, UUID>{
     public List<IOU> findHighValueIOUs();
     //public List<IOU> FindIOUsAboveAverageByAmount();
     //public List<IOU> FindIOUsAboveAverageByAmount(BigDecimal amount);
+
+    @Query("SELECT i FROM IOU i where i.amount <= (SELECT AVG(i2.amount) FROM IOU i2)")
+    public List<IOU> findLowValueIOUs();
 }
