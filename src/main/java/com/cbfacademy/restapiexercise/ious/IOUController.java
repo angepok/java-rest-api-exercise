@@ -64,5 +64,14 @@ public class IOUController {
     public void deleteIOUById(@PathVariable(value = "id") UUID id){
         iouService.deleteIOU(id);
         }
+
+
+    @GetMapping("/high")
+    public List<IOU> getHighIous(){
+
+        return iouService.getHighValueIous();
+    }
+    
+
     }
 
