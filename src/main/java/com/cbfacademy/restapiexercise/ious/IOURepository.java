@@ -1,10 +1,11 @@
 package com.cbfacademy.restapiexercise.ious;
 
 import java.util.UUID;
+import java.util.List;
 
 import org.springframework.data.repository.ListCrudRepository;
 
 public interface IOURepository extends ListCrudRepository<IOU, UUID>{
-    //public void findByBorrower (String borrower);
+    public List<IOU> findByBorrower (String borrower);
 
 }

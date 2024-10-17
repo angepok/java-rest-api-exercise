@@ -67,9 +67,9 @@ public class IOUService {
         //iouRepository.delete(null);
     }
 
-   // public void getIOUsByBorrower(){
-
-   // }
+    public void getIOUsByBorrower(String borrower){
+        iouRepository.findByBorrower(borrower);
+    }
 
 }
 
